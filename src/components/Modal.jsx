@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query'
 import { deleteUser } from "../services/users"
 
-function Modal({ state, setState, id }) {
+function Modal({ state, setState, id , setErrorMessage}) {
     const queryClient = useQueryClient()
     const create = useMutation({
         mutationFn: deleteUser,
@@ -9,6 +9,12 @@ function Modal({ state, setState, id }) {
             setTimeout(() => {
                 queryClient.invalidateQueries(["users"])
             }, 1000)
+        },
+        onError: () => {
+            setErrorMessage('Unauthorized')
+            setTimeout(() => {
+                setErrorMessage('')
+            })
         }
     })
     return (
