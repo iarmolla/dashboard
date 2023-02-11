@@ -14,7 +14,6 @@ function Data() {
             </div>
         )
     }
-   
     return (
         <div className="p-4 sm:ml-64 md:mt-4 App">
             <h1 id="test" className="text-gray-500 pb-5 text-center text-2xl">Bar graphic</h1>
