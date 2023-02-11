@@ -15,7 +15,7 @@ function Dashboard() {
   return (
     <>
       <Sidebar></Sidebar>
-      <nav className="border-b-2 border-gray-200 dark:border-gray-700 px-2 sm:px-4 py-2.5">
+      <nav className="px-2 sm:px-4 py-2.5">
         <div className="container flex flex-wrap items-center justify-between mx-auto">
           <div></div>
           <div className="flex flex-col items-center md:order-2">

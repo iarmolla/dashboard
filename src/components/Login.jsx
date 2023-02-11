@@ -53,9 +53,9 @@ function Login() {
                     handleSubmit,
                     isSubmitting,
                 }) => (
-                    <form className='flex flex-col p-5 gap-3 sm:p-10 rounded-md border border-slate-500' onSubmit={handleSubmit}>
+                    <form className='flex flex-col p-5  sm:p-10 rounded-md border border-slate-500' onSubmit={handleSubmit}>
                         <h1 className='text-white font-semibold text-2xl mb-5'>Login to dashboard</h1>
-                        <div className="mb-6 relative sm:w-80">
+                        <div className=" sm:w-80">
                             <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                             <input
                                 autoComplete='off'
@@ -63,19 +63,20 @@ function Login() {
                                 onBlur={handleBlur}
                                 value={values.email}
                                 type="email" id="email" className="focus:outline-none btn-submit text-white text-sm rounded-lg block w-full p-2.5 " placeholder="name@gmail.com" />
-                            <div className='absolute -bottom-6 flex flex-col justify-center items-center'>
+                            <div className='flex flex-col justify-center items-start py-2'>
                                 <label className={`text-sm font-semibold text-red-400`}>{touched.email && errors.email}</label>
                             </div>
                         </div>
-                        <div className="relative mb-6">
+                        <div className="mb-4">
                             <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
                             <input
+                                placeholder='password'
                                 autoComplete='off'
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.password}
                                 type="password" id="password" className="focus:outline-none  btn-submit text-white text-sm rounded-lg block w-full p-2.5 " />
-                            <div className='absolute -bottom-6 flex flex-col justify-center items-center'>
+                            <div className='flex flex-col justify-center items-start py-2'>
                                 <label className={`text-sm font-semibold text-red-400`}>{touched.password && errors.password}</label>
                             </div>
                         </div>

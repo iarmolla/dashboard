@@ -12,7 +12,7 @@ import Error from "./components/Error";
 
 function App() {
   return (
-    <div className="App h-screen">
+    <div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ProtectedRoute>

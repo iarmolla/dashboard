@@ -23,10 +23,11 @@ function Register() {
         }
     })
     return (
-        <div className='h-full flex flex-col justify-center items-center'>
+        <div className='min-h-screen flex flex-col justify-center items-center'>
             <Formik
-                initialValues={{ name: '', lastname: '', salary: '', type: '', email: '', password: '' }}
+                initialValues={{ name: '', lastname: '', salary: '', email: '', password: '', rols: 'admin' }}
                 validate={values => {
+                    console.log(values)
                     const errors = {};
                     if (!values.name) {
                         errors.name = "* Complete field *"
@@ -52,16 +53,21 @@ function Register() {
                     } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(values.password)) {
                         errors.password = '* Minimum eight characters, at least one letter and one number *'
                     }
-                    console.log(errors)
 
                     return errors;
                 }}
                 onSubmit={(values, { resetForm }) => {
+                    let rol 
+                    if(values.rols === 'admin') {
+                        rol = 0
+                    } else if(values.rols === 'user') {
+                        rol = 1
+                    }
                     const user = {
                         name: values.name,
                         lastname: values.lastname,
                         salary: values.salary,
-                        type: values.type,
+                        type: rol ,
                         email: values.email,
                         password: values.password
                     }
@@ -141,6 +147,11 @@ function Register() {
                         <div className={`flex flex-col pb-2  justify-center items-start ${touched.password && errors.password ? '' : 'hidden'}`}>
                             <label className={`pt-3 text-sm font-semibold text-red-400`}>{touched.password && errors.password}</label>
                         </div>
+                        <label for="rols" className="block mb-2 text-sm font-medium text-white pt-3">Select an option</label>
+                        <select name="rols" onChange={handleChange} onBlur={handleBlur} value={values.rols} id="rols" className="mb-4 border btn-submit  text-white text-sm rounded-lg  block w-full p-2.5">
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
                         <div className={`flex flex-col pt-8 ${touched.password && errors.password ? 'pt-0' : ''}`}>
                             <button type="submit" className="text-white btn-submit focus:outline-none font-medium rounded-lg text-sm  px-5 py-2.5 text-center">Register</button>
                         </div>

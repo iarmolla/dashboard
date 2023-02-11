@@ -15,6 +15,9 @@
     /* Firefox */
 }
 
+body {
+    background: #13111c;
+}
 html {
     scroll-behavior: smooth;
 }
