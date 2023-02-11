@@ -9,8 +9,10 @@
 
 /* For IE, Edge and Firefox */
 .scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 html {
@@ -20,11 +22,19 @@ html {
 .tr-user:hover {
     background: #211f2d;
 }
+
 .App {
     background: #13111c;
 }
 
 .link:hover {
     background: #211f2d;
+}
 
+.btn-submit {
+    background: #211f2d;
+}
+
+.btn-submit:hover {
+    background: #312b4cbe;
 }
