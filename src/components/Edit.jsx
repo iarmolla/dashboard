@@ -42,7 +42,7 @@ function Edit({ create, state, setState, userId }) {
                                             onBlur={handleBlur}
                                             value={values.name}
                                             name="name"
-                                            type="text" placeholder="" class="border-2 border-indigo-300 dark:bg-gray-600 text-gray-900 text-sm rounded-lg block w-full p-2.5  dark:text-white focus:appearance-none focus:outline-none focus:border-indigo-400" required />
+                                            type="text" placeholder="" class="border-2 border-indigo-200 text-white focus:outline-none btn-submit  text-sm rounded-lg block w-full p-2.5  " required />
                                     </div>
                                     <div>
                                         <label for="password" class="block mb-2 text-sm font-medium text-gray-500 dark:text-white">Salary</label>
@@ -51,9 +51,9 @@ function Edit({ create, state, setState, userId }) {
                                             onBlur={handleBlur}
                                             value={values.salary}
                                             name="salary"
-                                            type="number" placeholder="" class="border-2 border-indigo-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5 dark:bg-gray-600 dark:border-indigo-300 dark:placeholder-gray-400 dark:text-white focus:border-indigo-400" required />
+                                            type="number" placeholder="" class="border-2 border-indigo-200 text-white text-sm rounded-lg focus:outline-none block w-full p-2.5 btn-submit" required />
                                     </div>
-                                    <button type="submit" class="w-full text-white bg-indigo-500 hover:bg-indigo-600  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-400 dark:hover:bg-indigo-500 dark:focus:ring-indigo-8¡600">Edit account</button>
+                                    <button type="submit" class="w-full text-white btn-submit font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Edit account</button>
                                 </form>
                             )}
                         </Formik>
