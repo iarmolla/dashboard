@@ -1,19 +1,25 @@
-import React from 'react'
+import { useState } from 'react'
 import { Formik } from 'formik'
 import { useMutation } from 'react-query'
 import { loginUser } from "../services/users"
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 function Login() {
+    const [message, setMessage] = useState('')
     const navigate = useNavigate('')
     const create = useMutation({
         mutationFn: loginUser,
-        onSuccess: (response) => {         
+        onSuccess: (response, data) => {
             const { token } = response.data
+            localStorage.setItem('email', data.email)
             localStorage.setItem('token', token)
-            if (token) {              
-                navigate('/')              
-            }      
+            if (token) {
+                navigate('/')
+            }
+        },
+        onError: (error) => {
+            const { message } = error.response.data
+            setMessage(message)
         }
     })
     return (
@@ -22,15 +28,20 @@ function Login() {
                 initialValues={{ email: '', password: '' }}
                 validate={values => {
                     const errors = {};
-                    return errors;
+                    if (!values.email) {
+                        errors.email = '* Complete field *';
+                    }
+                    if (!values.password) {
+                        errors.password = '* Complete field *'
+                    }
+                    return errors
                 }}
-                onSubmit={(values, { resetForm }) => {
-                    const user = {                        
+                onSubmit={(values) => {
+                    const user = {
                         email: values.email,
                         password: values.password
                     }
-                    create.mutate(user)          
-                    // resetForm()
+                    create.mutate(user)
                 }}
             >
                 {({
@@ -42,28 +53,38 @@ function Login() {
                     handleSubmit,
                     isSubmitting,
                 }) => (
-                    <form className='flex flex-col gap-3 p-10 rounded-md border border-slate-500' onSubmit={handleSubmit}>
+                    <form className='flex flex-col p-5 gap-3 sm:p-10 rounded-md border border-slate-500' onSubmit={handleSubmit}>
                         <h1 className='text-white font-semibold text-2xl mb-5'>Login to dashboard</h1>
-                        <div class="mb-6 w-80">
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                            <input 
-                            autoComplete='off'
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.email}
-                            type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@gmail.com" required />
+                        <div className="mb-6 relative sm:w-80">
+                            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                            <input
+                                autoComplete='off'
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.email}
+                                type="email" id="email" className="focus:outline-none btn-submit text-white text-sm rounded-lg block w-full p-2.5 " placeholder="name@gmail.com" />
+                            <div className='absolute -bottom-6 flex flex-col justify-center items-center'>
+                                <label className={`text-sm font-semibold text-red-400`}>{touched.email && errors.email}</label>
+                            </div>
                         </div>
-                        <div class="mb-6">
-                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-                            <input 
-                            autoComplete='off'
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.password}
-                            type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                        <div className="relative mb-6">
+                            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
+                            <input
+                                autoComplete='off'
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.password}
+                                type="password" id="password" className="focus:outline-none  btn-submit text-white text-sm rounded-lg block w-full p-2.5 " />
+                            <div className='absolute -bottom-6 flex flex-col justify-center items-center'>
+                                <label className={`text-sm font-semibold text-red-400`}>{touched.password && errors.password}</label>
+                            </div>
                         </div>
-                        <div>
-                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Send</button>
+                        <div className='flex flex-col gap-4'>
+                            <button type="submit" className="text-white btn-submit focus:outline-none font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center">Send</button>
+                            <span className=' text-white'>Dont have an account yet? <Link to="/register" className='text-blue-400 hover:border-b hover:border-blue-600'>Sign up</Link></span>
+                        </div>
+                        <div className="flex flex-col justify-center items-center text-red-400">
+                            <span>{message}</span>
                         </div>
                     </form>
                 )}
