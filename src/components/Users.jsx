@@ -18,7 +18,7 @@ function Users() {
             setErrorMessage('Unauthorized')
             setTimeout(() => {
                 setErrorMessage('')
-            }, 3000)
+            }, 2000)
         }
     })
     return (
@@ -59,7 +59,7 @@ function Users() {
                         } 
                         return errors;
                     }}
-                    onSubmit={(values, { resetForm }) => {
+                    onSubmit={(values) => {
                         let rol
                         if (values.rols === 'admin') {
                             rol = 0
@@ -71,13 +71,10 @@ function Users() {
                             lastname: values.lastname,
                             salary: values.salary,
                             type: rol,
-                            email: values.email,
+                            email: values.email.toLowerCase(),
                             password: values.password
                         }
-                        create.mutate(user)
-                        if(message) {
-                            resetForm()
-                        }
+                        create.mutate(user)                        
                     }}
                 >
                     {({

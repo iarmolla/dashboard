@@ -72,7 +72,7 @@ function Register() {
                         lastname: values.lastname,
                         salary: values.salary,
                         type: rol,
-                        email: values.email,
+                        email: values.email.toLowerCase(),
                         password: values.password
                     }
                     create.mutate(user)
