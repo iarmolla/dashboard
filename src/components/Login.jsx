@@ -53,7 +53,7 @@ function Login() {
                     handleSubmit,
                     isSubmitting,
                 }) => (
-                    <form className='flex flex-col p-5  sm:p-10 rounded-md border border-slate-500' onSubmit={handleSubmit}>
+                    <form className='flex flex-col p-5  sm:p-10' onSubmit={handleSubmit}>
                         <h1 className='text-white font-semibold text-2xl mb-5'>Login to dashboard</h1>
                         <div className=" sm:w-80">
                             <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
