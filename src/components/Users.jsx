@@ -56,9 +56,7 @@ function Users() {
                         }
                         if (!values.password) {
                             errors.password = "* Complete field *"
-                        } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(values.password)) {
-                            errors.password = '* Minimum eight characters, at least one letter and one number *'
-                        }
+                        } 
                         return errors;
                     }}
                     onSubmit={(values, { resetForm }) => {
@@ -77,6 +75,9 @@ function Users() {
                             password: values.password
                         }
                         create.mutate(user)
+                        if(message) {
+                            resetForm()
+                        }
                     }}
                 >
                     {({
