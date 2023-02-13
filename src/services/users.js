@@ -3,7 +3,6 @@ import axios from 'axios'
 const api = axios.create({
   baseURL: 'https://dashboard-api-production-2056.up.railway.app/'
 })
-const token = localStorage.getItem('token')
 
 export const getUsers = async () => {
   const request = await api.get('/users')
@@ -11,18 +10,26 @@ export const getUsers = async () => {
 }
 
 export const createUser = async (user) => {
+  const token = localStorage.getItem('token')
+
   return await api.post('/users', user, { headers: { 'x-access-token': token } })
 }
 
 export const deleteUser = async (id) => {
+  const token = localStorage.getItem('token')
+
   return await api.delete(`/users/${id}`, { headers: { 'x-access-token': token } })
 }
 
 export const editUser = async (user) => {
+  const token = localStorage.getItem('token')
+
   return await api.put(`/users`, user, { headers: { 'x-access-token': token } })
 }
 
 export const loginUser = async (user) => {
+  const token = localStorage.getItem('token')
+
   return await api.post(`/login`, user, { headers: { 'x-access-token': token } })
 }
 
