@@ -32,7 +32,7 @@ function Users() {
                         if (!values.name) {
                             errors.name = "* Complete field *"
                         } else if(!/^[A-Z]\w{3,12}$/.test(values.name)) {
-                            errors.name = "* Must be letters and at least 4 characters *"
+                            errors.name = "* Must start with a capital letter  *"
                         }
                         if (!values.rols) {
                             errors.rols = '*Complete field*'
@@ -40,7 +40,7 @@ function Users() {
                         if (!values.lastname) {
                             errors.lastname = "* Complete field *"
                         } else if(!/^[A-Z]\w{3,12}$/.test(values.lastname)) {
-                            errors.lastname = "* Must be letters and at least 4 characters *"
+                            errors.lastname = "* Must start with a capital letter  *"
                         }
                         if (!values.salary) {
                             errors.salary = "* Complete field *"
