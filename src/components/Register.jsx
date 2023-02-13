@@ -7,6 +7,7 @@ import { registerUser } from "../services/users"
 function Register() {
     const navigate = useNavigate()
     const [message, setMessage] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
     const create = useMutation({
         mutationFn: registerUser,
         onSuccess: (response) => {
@@ -18,8 +19,12 @@ function Register() {
                     navigate('/login')
                 }, 1500);
             } else {
-                setMessage('Email already exists')
+                setErrorMessage('Email already exists')
             }
+        },
+        onError: (error) => {
+            const { message } = error.response.data
+            setMessage(message)
         }
     })
     return (
@@ -27,19 +32,21 @@ function Register() {
             <Formik
                 initialValues={{ name: '', lastname: '', salary: '', email: '', password: '', rols: 'admin' }}
                 validate={values => {
-                    console.log(values)
                     const errors = {};
                     if (!values.name) {
                         errors.name = "* Complete field *"
+                    } else if(!/^[A-Z]\w{3,12}$/.test(values.name)) {
+                        errors.name = "* Must be letters and at least 4 characters *"
                     }
                     if (!values.lastname) {
                         errors.lastname = "* Complete field *"
+                    } else if(!/^[A-Z]\w{3,12}$/.test(values.lastname)) {
+                        errors.lastname = "* Must be letters and at least 4 characters *"
                     }
                     if (!values.salary) {
                         errors.salary = "* Complete field *"
-                    }
-                    if (!values.type) {
-                        errors.type = "* Complete field *"
+                    } else if(!/^[0-9]+$/.test(values.salary)) {
+                        errors.salary = 'Only numbers'
                     }
                     if (!values.email) {
                         errors.email = "* Complete field *"
@@ -50,29 +57,25 @@ function Register() {
                     }
                     if (!values.password) {
                         errors.password = "* Complete field *"
-                    } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(values.password)) {
-                        errors.password = '* Minimum eight characters, at least one letter and one number *'
-                    }
-
+                    } 
                     return errors;
                 }}
                 onSubmit={(values, { resetForm }) => {
-                    let rol 
-                    if(values.rols === 'admin') {
+                    let rol
+                    if (values.rols === 'admin') {
                         rol = 0
-                    } else if(values.rols === 'user') {
+                    } else if (values.rols === 'user') {
                         rol = 1
                     }
                     const user = {
                         name: values.name,
                         lastname: values.lastname,
                         salary: values.salary,
-                        type: rol ,
+                        type: rol,
                         email: values.email,
                         password: values.password
                     }
                     create.mutate(user)
-                    resetForm()
                 }}
             >
                 {({
@@ -152,11 +155,17 @@ function Register() {
                             <option value="admin">Admin</option>
                             <option value="user">User</option>
                         </select>
-                        <div className={`flex flex-col pt-8 ${touched.password && errors.password ? 'pt-0' : ''}`}>
+                        <div className={`flex flex-col pt-6 ${touched.password && errors.password ? 'pt-0' : ''}`}>
                             <button type="submit" className="text-white btn-submit focus:outline-none font-medium rounded-lg text-sm  px-5 py-2.5 text-center">Register</button>
                         </div>
                         <div className='pt-3'>
                             <span className=' text-white'>Dont have an account yet? <Link to="/login" className='text-blue-400 hover:border-b hover:border-blue-600'>Login</Link></span>
+                        </div>
+                        <div className="flex flex-col justify-center items-start pt-2 text-red-400">
+                            <span>{errorMessage}</span>
+                        </div>
+                        <div className="flex flex-col justify-center items-start pt-2 text-green-400">
+                            <span>{message}</span>
                         </div>
                     </form>
                 )}
