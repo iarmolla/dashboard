@@ -9,7 +9,6 @@ import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Error from "./components/Error";
 
-
 function App() {
   return (
     <div>
