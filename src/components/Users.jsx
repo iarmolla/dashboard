@@ -2,6 +2,7 @@ import { Formik } from 'formik'
 import { useState } from 'react'
 import { useMutation } from 'react-query'
 import { createUser } from "../services/users"
+import { Link } from 'react-router-dom'
 
 function Users() {
     const [message, setMessage] = useState('')
@@ -22,21 +23,57 @@ function Users() {
         }
     })
     return (
-        <div className="p-4 sm:ml-64 md:mt-14">
-            <h1 className='block py-2.5 text-2xl px-0 w-full  text-gray-900  dark:text-gray-400  appearance-none pl-4 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'>Create user</h1>
-            <div className="p-4 rounded-lg">
+        <div className="p-4 flex flex-col items-center sm:ml-64 md:mt-0">
+            <h1 className='block py-2.5 text-2xl px-0 w-full  text-white  appearance-none pl-4 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'>Create user</h1>
+            <div className="p-4 w-full rounded-lg">
                 <Formik
-                    initialValues={{ name: '', lastname: '', salary: '', type: '', email: '', password: '', confirmPassword: '' }}
+                    initialValues={{ name: '', lastname: '', salary: '', type: 'admin', email: '', password: '', rols: 'admin' }}
                     validate={values => {
                         const errors = {};
+                        if (!values.name) {
+                            errors.name = "* Complete field *"
+                        } else if(!/^[A-Z]\w{3,12}$/.test(values.name)) {
+                            errors.name = "* Must be letters and at least 4 characters *"
+                        }
+                        if (!values.rols) {
+                            errors.rols = '*Complete field*'
+                        }
+                        if (!values.lastname) {
+                            errors.lastname = "* Complete field *"
+                        } else if(!/^[A-Z]\w{3,12}$/.test(values.lastname)) {
+                            errors.lastname = "* Must be letters and at least 4 characters *"
+                        }
+                        if (!values.salary) {
+                            errors.salary = "* Complete field *"
+                        } else if(!/^[0-9]+$/.test(values.salary)) {
+                            errors.salary = 'Only numbers'
+                        }
+                        if (!values.email) {
+                            errors.email = "* Complete field *"
+                        } else if (
+                            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+                        ) {
+                            errors.email = '* Invalid format*';
+                        }
+                        if (!values.password) {
+                            errors.password = "* Complete field *"
+                        } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(values.password)) {
+                            errors.password = '* Minimum eight characters, at least one letter and one number *'
+                        }
                         return errors;
                     }}
                     onSubmit={(values, { resetForm }) => {
+                        let rol
+                        if (values.rols === 'admin') {
+                            rol = 0
+                        } else if (values.rols === 'user') {
+                            rol = 1
+                        }
                         const user = {
                             name: values.name,
                             lastname: values.lastname,
                             salary: values.salary,
-                            type: values.type,
+                            type: rol,
                             email: values.email,
                             password: values.password
                         }
@@ -52,95 +89,82 @@ function Users() {
                         handleSubmit,
                         isSubmitting,
                     }) => (
-                        <form method='POST' onSubmit={handleSubmit}>
-                            <div className="relative z-0 w-full mb-6 group">
-                                <input type="text" name="name" id="name"
-                                    autoComplete='off'
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.name} className="dark:text-white block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                                <label for="floating_email" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Name</label>
-                            </div>
-                            <div class="relative z-0 w-full mb-6 group">
+                        <form className='flex flex-col w-full px-8  rounded-lg' method='POST' onSubmit={handleSubmit}>
+                            <div className="relative flex flex-col gap-2">
+                                <label htmlFor="name" className="block text-sm font-medium text-white">Name</label>
                                 <input
+                                    autoComplete='off'
                                     onChange={handleChange}
                                     onBlur={handleBlur}
+                                    value={values.name}
+                                    type="text" id="name" className="focus:outline-none btn-submit text-white text-sm rounded-lg block w-full p-2.5 " placeholder="John" />
+                                <div className='flex flex-col pb-2  justify-center items-star'>
+                                    <label className={`text-sm font-semibold text-red-400`}>{touched.name && errors.name}</label>
+                                </div>
+                            </div>
+                            <div className="relative flex flex-col gap-2 ">
+                                <label htmlFor="lastname" className="block text-sm font-medium text-white">Lastname</label>
+                                <input
                                     autoComplete='off'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
                                     value={values.lastname}
-                                    type="text" name="lastname" id="lastname" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                                <label for="floating_repeat_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Lastname</label>
-                            </div>
-                            <div>
-                                <div className="relative z-0 w-full mb-6 group">
-                                    <input type="number"
-                                        autoComplete='off'
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.salary}
-                                        name="salary"
-                                        id="salary"
-                                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 dark:text-white border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                        required />
-                                    <label for="floating_first_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Salary</label>
+                                    type="text" id="lastname" className="focus:outline-none btn-submit text-white text-sm rounded-lg block w-full p-2.5 " placeholder="Doe" />
+                                <div className='flex flex-col pb-2  justify-center items-star'>
+                                    <label className={`text-sm font-semibold text-red-400`}>{touched.lastname && errors.lastname}</label>
                                 </div>
                             </div>
-                            <div class="grid md:grid-cols-2 md:gap-6">
-                                <div class="relative z-0 w-full mb-6 group">
-                                    <input
-                                        type="number"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        autoComplete='off'
-                                        value={values.type}
-                                        name="type" id="type" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                                    <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Type</label>
-                                </div>
-                                <div class="relative z-0 w-full mb-6 group">
-                                    <input
-                                        autoComplete='off'
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.email}
-                                        type="email"
-                                        name="email"
-                                        id="email"
-                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                        required />
-                                    <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
+                            <div className="flex flex-col gap-2 relative">
+                                <label htmlFor="salary" className="block  text-sm text-white font-mediumtext-white">Salary</label>
+                                <input
+                                    autoComplete='off'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.salary}
+                                    type="text" id="salary" className="focus:outline-none btn-submit text-white text-sm rounded-lg block w-full p-2.5" placeholder="Salary" />
+                                <div className='flex flex-col pb-2  justify-center items-star'>
+                                    <label className={`text-sm font-semibold text-red-400`}>{touched.salary && errors.salary}</label>
                                 </div>
                             </div>
-                            <div class="grid md:grid-cols-2 md:gap-6">
-                                <div class="relative z-0 w-full mb-6 group">
-                                    <input
-                                        autoComplete='off'
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.password}
-                                        type="password"
-                                        name="password"
-                                        id="password"
-                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                        required />
-                                    <label for="floating_phone" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
-                                </div>
-                                <div class="relative z-0 w-full mb-6 group">
-                                    <input
-                                        autoComplete='off'
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.confirmPassword}
-                                        type="password" name="confirmPassword" id="confirmPassword" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                                    <label for="floating_company" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm password</label>
+                            <div className="relative flex flex-col gap-2">
+                                <label htmlFor="email" className="block text-sm font-medium text-white">Email</label>
+                                <input
+                                    autoComplete='off'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.email}
+                                    type="email" id="email" className="btn-submit focus:outline-none text-white text-sm rounded-lg block w-full p-2.5 " placeholder="name@gmail.com" />
+                                <div className='flex flex-col pb-2 justify-center items-star'>
+                                    <label className={`text-sm font-semibold text-red-400`}>{touched.email && errors.email}</label>
                                 </div>
                             </div>
-                            <button type="submit" className="text-white btn-submit transition-all focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Send</button>
-                            {
-                                message ? <div className='mt-5 text-green-700'>
-                                    <span>{message}</span>
-                                </div> : <></>
-                            }
-                            <div className="text-red-400 pt-5">
-                                {errorMessage}
+                            <div className="relative flex flex-col gap-2">
+                                <label htmlFor="password" className="block text-sm font-medium text-white">Password</label>
+                                <input
+                                    autoComplete='off'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    placeholder="Your password"
+                                    value={values.password}
+                                    type="password" id="password" className="btn-submit focus:outline-none text-white text-sm rounded-lg block w-full p-2.5 " />
+                            </div>
+                            <div className={`flex flex-col pb-2  justify-center items-start ${touched.password && errors.password ? '' : 'hidden'}`}>
+                                <label className={`pt-3 text-sm font-semibold text-red-400`}>{touched.password && errors.password}</label>
+                            </div>
+                            <label for="rols" className="block mb-2 text-sm font-medium text-white pt-3">Select an option</label>
+                            <select name="rols" onChange={handleChange} onBlur={handleBlur} value={values.rols} id="rols" className="mb-4 border btn-submit  text-white text-sm rounded-lg  block w-full p-2.5">
+                                <option value="admin">Admin</option>
+                                <option value="user">User</option>
+                            </select>
+                            <div className={`flex flex-col pt-6 ${touched.password && errors.password ? 'pt-0' : ''}`}>
+                                <button type="submit" className="text-white btn-submit focus:outline-none font-medium rounded-lg text-sm  px-5 py-2.5 text-center">Register</button>
+                            </div>
+
+                            <div className="flex flex-col justify-center items-start pt-2 text-red-400">
+                                <span>{errorMessage}</span>
+                            </div>
+                            <div className="flex flex-col justify-center items-start pt-2 text-green-400">
+                                <span>{message}</span>
                             </div>
                         </form>
                     )}
