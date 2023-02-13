@@ -98,7 +98,7 @@ function Table() {
                                         <td className="px-6 py-4">${user.salary}</td>
                                         <td className="flex items-center px-6 py-4 space-x-3">
                                             <span className="font-medium text-blue-600 dark:text-blue-500 hover:underline" onClick={() => {
-                                                setUserId(user.id);
+                                                setUserId(user);
                                                 setEdit(!edit)
                                             }}>Edit</span>
                                             <span className="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => {
