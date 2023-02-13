@@ -1,7 +1,7 @@
 import { Formik } from 'formik'
 import { useState } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
-import { Navigate, useNavigate, Link } from 'react-router-dom'
+import { useMutation} from 'react-query'
+import { useNavigate, Link } from 'react-router-dom'
 import { registerUser } from "../services/users"
 
 function Register() {

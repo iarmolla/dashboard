@@ -2,15 +2,18 @@ import { Formik } from 'formik'
 import { useState } from 'react'
 import { useMutation } from 'react-query'
 import { createUser } from "../services/users"
+import { useNavigate } from 'react-router-dom'
 
 function Users() {
     const [message, setMessage] = useState('')
+    const navigate = useNavigate()
     const [errorMessage, setErrorMessage] = useState('')
     const create = useMutation({
         mutationFn: createUser,
         onSuccess: () => {
             setMessage('Account Created successfully')
             setTimeout(() => {
+                navigate('/')
                 setMessage('')
             }, 2000)
         },
