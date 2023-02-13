@@ -2,7 +2,6 @@ import { Formik } from 'formik'
 import { useState } from 'react'
 import { useMutation } from 'react-query'
 import { createUser } from "../services/users"
-import { Link } from 'react-router-dom'
 
 function Users() {
     const [message, setMessage] = useState('')
