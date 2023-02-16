@@ -3,7 +3,7 @@ import { getUsers } from '../services/users'
 import Sidebar from './Sidebar'
 import { useState } from 'react';
 import { signOut } from '../helpers/signout'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   const navigate = useNavigate('')
@@ -28,6 +28,9 @@ function Dashboard() {
                 <span className="block text-sm font-medium truncate text-gray-400">{localStorage.getItem('email') || 'email'}</span>
               </div>
               <ul className="py-2" aria-labelledby="user-menu-button">
+              <li>
+                  <Link to='/settings' className="link block px-4 py-2 text-sm text-gray-400">Settings</Link>
+                </li>
                 <li>
                   <span onClick={() => signOut(navigate)} className="link block px-4 py-2 text-sm text-gray-400">Sign out</span>
                 </li>
