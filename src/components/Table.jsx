@@ -1,5 +1,5 @@
-import { getUsers, editUser } from "../services/users"
-import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { getUsers } from "../services/users"
+import { useQuery } from 'react-query'
 import Modal from "./Modal"
 import Edit from "./Edit"
 
@@ -13,21 +13,7 @@ function Table() {
         queryKey: ['users'],
         queryFn: getUsers
     })
-    const queryClient = useQueryClient()
-    const create = useMutation({
-        mutationFn: editUser,
-        onSuccess: () => {
-            setTimeout(() => {
-                queryClient.invalidateQueries(["users"])
-            }, 1000)
-        },
-        onError: () => {
-            setErrorMessage('Unauthorized')
-            setTimeout(() => {
-                setErrorMessage('')
-            }, 2000)
-        }
-    })
+   
     const [userId, setUserId] = useState()
     if (isLoading) {
         return (
@@ -85,9 +71,9 @@ function Table() {
                     <tbody>
                         {
 
-                            data.map((user) => {
+                            data.map((user, index) => {
                                 return (
-                                    <tr className="border-b dark:border-gray-700 tr-user">
+                                    <tr key={index} className="border-b dark:border-gray-700 tr-user">
                                         <td className="px-6 py-4">{user.id}</td>
                                         <td className="px-6 py-4">
                                             {user.email}
@@ -116,7 +102,7 @@ function Table() {
                     {errorMessage}
                 </div>
                 <Modal setErrorMessage={setErrorMessage} state={modal} setState={setModal} id={userId} />
-                <Edit create={create} state={edit} setState={setEdit} userId={userId} />
+                <Edit state={edit} setState={setEdit}  userId={userId} />
             </div>
         </div>
     )
