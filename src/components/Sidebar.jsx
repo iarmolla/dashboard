@@ -8,6 +8,9 @@ function Sidebar() {
     const [user, setUser] = useState(false)
     const [sidebar, setSidebar] = useState(false)
     const navigate = useNavigate('')
+    const hideSidebar = () => {
+        setSidebar(false)
+    }
     return (
         <div>
             <button onClick={() => setSidebar(!sidebar)} data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" className="inline-flex items-center p-2 mt-2 ml-3 text-sm  rounded-lg md:hidden focus:outline-none focus:ring-2  text-gray-400 hover:bg-gray-700 focus:ring-gray-600">
@@ -25,7 +28,7 @@ function Sidebar() {
                 </button>
                 <div className="h-full px-3 py-4 ">
                     <ul className="space-y-2 text-white">
-                        <li>
+                        <li onClick={hideSidebar}>
                             <Link to="/data" className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg link">
                                 <svg aria-hidden="true" className="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
                                 <span className="ml-3 text-white">Dashboard</span>
@@ -38,15 +41,15 @@ function Sidebar() {
                                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
                             </button>
                             <ul id="dropdown-example" className={`${!user ? 'hidden' : ''} py-2 space-y-2`}>
-                                <li>
+                                <li onClick={hideSidebar}>
                                     <span className="flex link items-center w-full p-2 link text-base font-normal  transition duration-75 rounded-lg pl-11 group " onClick={() => navigate('/create')}>Create user</span>
                                 </li>
-                                <li>
+                                <li onClick={hideSidebar}>
                                     <span className="flex items-center w-full link p-2 text-base font-normal  transition duration-75 rounded-lg pl-11 group " onClick={() => navigate('/')}>List users</span>
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <li onClick={hideSidebar}>
                             <Link to="/settings" className="flex items-center p-2 text-base font-normal text-gray-400 rounded-lg link">
                                 <IoMdSettings />
                                 <span className="ml-3 text-white">Settings</span>
