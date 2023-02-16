@@ -34,16 +34,16 @@ function Users() {
                         const errors = {};
                         if (!values.name) {
                             errors.name = "* Complete field *"
-                        } else if(!/^[A-Z]\w{3,12}$/.test(values.name)) {
-                            errors.name = "* Must start with a capital letter  *"
+                        } else if (!/^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(values.name)) {
+                            errors.name = "* Only letters  *"
                         }
                         if (!values.rols) {
                             errors.rols = '*Complete field*'
                         }
                         if (!values.lastname) {
                             errors.lastname = "* Complete field *"
-                        } else if(!/^[A-Z]\w{3,12}$/.test(values.lastname)) {
-                            errors.lastname = "* Must start with a capital letter  *"
+                        } else if (!/^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(values.lastname)) {
+                            errors.lastname = "* Only letters  *"
                         }
                         if (!values.salary) {
                             errors.salary = "* Complete field *"
