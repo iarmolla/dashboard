@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Error from "./components/Error";
+import Settings from './components/Settings'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/create" element={<Users />}></Route>
             <Route path="/" element={<List />}></Route>
             <Route path="/data" element={<Data />}></Route>
+            <Route path="/settings" element={<Settings/>}></Route>
           </Route>
           <Route path="/login"element={<Login/>} ></Route>
           <Route path="/register"element={<Register/>} ></Route>
