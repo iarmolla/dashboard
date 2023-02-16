@@ -35,7 +35,7 @@ function Settings() {
         create.mutate(email)
     }, [])
     return (
-        <div className='sm:ml-72 ml-5 mr-5 flex flex-col  gap-3'>
+        <div className='sm:ml-72 ml-5 mr-5 mt-10 md:mt-14 flex flex-col  gap-3'>
             <article>
                 <section className='flex flex-col '>
                     <h1 className='text-white text-2xl '>Profile</h1>

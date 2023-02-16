@@ -47,7 +47,7 @@ function Table() {
     }
     return (
         <div>
-            <div className="sm:ml-64 md:mt-0 sm:rounded-lg overflow-x-scroll scrollbar-hide">
+            <div className="sm:ml-64 md:mt-14 sm:rounded-lg overflow-x-scroll scrollbar-hide">
                 <table className="text-sm text-left text-gray-500 dark:text-gray-400 w-full">
                     <thead className="text-xs  text-gray-700 uppercase dark:text-gray-400">
                         <tr>
