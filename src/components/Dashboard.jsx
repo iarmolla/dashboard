@@ -23,7 +23,7 @@ function Dashboard() {
               <span className="sr-only">Open user menu</span>
               <img className="w-8 h-8 rounded-full" src={profile} alt="user photo" />
             </button>
-            <div className={`z-50 ${user ? 'absolute' : 'hidden'} top-24 right-10  md:top-11 md:right-0 md:mr-1 my-4 text-base list-none btn-submit rounded-lg shadow `} >
+            <div className={`z-50 ${user ? 'absolute' : 'hidden'} top-10 right-10  md:top-11 md:right-0 md:mr-1 my-4 text-base list-none btn-submit rounded-lg shadow `} >
               <div className="px-4 py-3">
                 <span className="block text-sm font-medium truncate text-gray-400">{localStorage.getItem('email') || 'email'}</span>
               </div>
