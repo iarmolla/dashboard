@@ -2,7 +2,7 @@
 
 # DASHBOARD
 Panel de administración:
-El objetivo es obtener, un control organizado de los empleados, que estén registrados. El panel ofrece graficos del sueldo que recibe el empleado para tener una mejor visualización del mismo, y poder tomar decisiones con lo anterior a su vez el panel ofrece modificaciones de los empleados registrados, como la eliminacíon de un empleado la edición o el registro de un nuevo empleado.
+El objetivo es obtener, un control organizado de los empleados, que estén registrados. El panel ofrece gráficos del sueldo que recibe el empleado para tener una mejor visualización del mismo, y poder tomar decisiones con lo anterior, a su vez el panel ofrece modificaciones de los empleados registrados, como la eliminacíon de un empleado, la edición o el registro de un nuevo empleado.
 
 ## Tecnologías 🖥️
 Dashboard:
