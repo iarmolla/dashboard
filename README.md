@@ -2,6 +2,8 @@
 
 [![Dash.png](https://i.postimg.cc/65Y3zLWC/Dash.png)](https://postimg.cc/tYnp46Vg)
 
+![image](https://user-images.githubusercontent.com/88797889/231621168-b7f1f86b-20e3-4d6e-a094-387b5b7a58f8.png)
+
 # DASHBOARD
 Panel de administración:
 El objetivo es obtener, un control organizado de los empleados, que estén registrados. El panel ofrece gráficos del sueldo que recibe el empleado para tener una mejor visualización del mismo, y poder tomar decisiones con lo anterior, a su vez el panel ofrece modificaciones de los empleados registrados, como la eliminacíon de un empleado, la edición o el registro de un nuevo empleado.
