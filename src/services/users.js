@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'https://dashboard-api-production-2056.up.railway.app/'
+  baseURL: 'https://dashboard-api-production-ce72.up.railway.app/'
 })
 
 export const getUsers = async () => {
