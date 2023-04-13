@@ -35,12 +35,12 @@ function Register() {
                     const errors = {};
                     if (!values.name) {
                         errors.name = "* Complete field *"
-                    } else if(!/^[A-Z].*$/.test(values.name)) {
+                    } else if(!/^[A-Z][a-zA-Z]*$/.test(values.name)) {
                         errors.name = "* Must start with a capital letter*"
                     }
                     if (!values.lastname) {
                         errors.lastname = "* Complete field *"
-                    } else if(!/^[A-Z].*$/.test(values.lastname)) {
+                    } else if(!/^[A-Z][a-zA-Z]*$/.test(values.lastname)) {
                         errors.lastname = "* Must start with a capital letter *"
                     }
                     if (!values.salary) {
