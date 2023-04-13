@@ -1,4 +1,4 @@
-[![dashboard.png](https://i.postimg.cc/XYhhk9V2/dashboard.png)](https://postimg.cc/k2Qfn6R8)
+[![dashboard-img.png](https://i.postimg.cc/xdqbLpLk/dashboard-img.png)](https://postimg.cc/qtVRTLb0)
 
 # DASHBOARD
 Panel de administración:
