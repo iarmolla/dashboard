@@ -159,7 +159,7 @@ function Register() {
                             <button type="submit" className="text-white btn-submit focus:outline-none font-medium rounded-lg text-sm  px-5 py-2.5 text-center">Register</button>
                         </div>
                         <div className='pt-3'>
-                            <span className=' text-white'>Dont have an account yet? <Link to="/login" className='text-blue-400 hover:border-b hover:border-blue-600'>Login</Link></span>
+                            <span className=' text-white'>Do you have an account? <Link to="/login" className='text-blue-400 hover:border-b hover:border-blue-600'>Login</Link></span>
                         </div>
                         <div className="flex flex-col justify-center items-start pt-2 text-red-400">
                             <span>{errorMessage}</span>
